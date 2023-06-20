@@ -1,6 +1,7 @@
 from flask_session import Session
 from flask import Flask, jsonify, redirect, render_template, request, session
 from helper import  login_required
+from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
 
 
@@ -29,29 +30,36 @@ def index():
 @app.route("/register" ,  methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-
-        if request.form.get("correo"):
-            if not request.form.get("correo").endswith("@gmail.com"):
-                return render_template("CrearCuenta.html" , error = "Las contraseñas no coinciden ") # 
-            sql = "select correo from usuarios where correo = ?"
-            rows = cursor.execute(sql, (request.form.get("correo")))
-            rows = cursor.fetchall()
-
-        if len(rows) > 0:
-            next # correo ya estaba insertado en la base de datos            
-
-        if request.form.get("password") != request.form.get("confirmacion"):
+        if request.form.get("password") != request.form.get("passwordConfirmar"):
             return render_template("CrearCuenta.html" , error = "Las contraseñas no coinciden ") # 
 
-        # if request.form.get ("telefono") 
-        # validar que sea numero 
-        # validar el tamaño correcto 
-        # 
-        #sql=  "insert into usuarios (correo ,  pass , nombre , telefono ) values (?,?,?,?)"
-        #cursor.execute(sql, request.form.get("correo"),  generate_password_hash(request.form.get("password")), request.form.get("nombre"),request.form.get("telefono")))
-        #conexion.commit() 
-        return redirect("/login")
- 
+        if request.form.get("correo"):
+            if not request.form.get("correo").endswith('@gmail.com') and not request.form.get("correo").endswith('@hotmail.com'):#validar que es admitido
+                return render_template("CrearCuenta.html" , error = "correo invalido")   
+            
+        sql = "select correo from usuarios where correo = ?"
+        rows = cursor.execute(sql, (request.form.get("correo")))
+        rows = cursor.fetchall()
+
+        if len(rows) > 0:
+            return render_template("CrearCuenta.html" , error = "usuario previamente registrado") #
+         
+        if request.form.get("telefono"):# si escribe un telefono se valida que sea numerico y que el tamaño sea ocho
+            if not request.form.get("telefono").isnumeric():
+                return render_template("CrearCuenta.html" , error = "telefono invalido")
+            if len(request.form.get("telefono")) != 8:
+                return render_template("CrearCuenta.html" , error = "telefono invalido")
+            
+        if not request.form.get("telefono"):
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,estado) VALUES (?,?,?,'si')"
+            cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),  request.form.get("nombre")))
+            conexion.commit() 
+        else:
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,telefono,estado) VALUES (?,?,?,?,'si')"
+            cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),request.form.get("nombre"),request.form.get("telefono"),  ))
+            conexion.commit() 
+       
+        return render_template("login.html" , succes = "usuario instalado correctamente")
     else : 
         return render_template("CrearCuenta.html")
 

@@ -6,20 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrate</title>
-    <link rel="stylesheet" href="/static/Crear.css">
+    <link rel="stylesheet" href="/static/crear.css">
 </head>
 
 <body>
-      {% if error %}
+    <!---  {% if error %}
     <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alerta1">
         <strong></strong> {{ error }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {% endif %} 
-    <form action="/register" method="post">
+    {% endif %} --->
         <div class="Login">
+        <form action="/register" method="post">
+
             <img src="/static/imagenes/avatar.jpeg" alt="" class="avatar">
             <h1>Registrate</h1>
             <p>Nombre completo</p>
@@ -28,13 +29,18 @@
             <input type="text" placeholder="Correo Electronico" id="correo" name="correo" required>
             <p>Contraseña</p>
             <input type="password" placeholder="Contraseña" id="password" name="password" required>
+            <img src="/static/imagenes/ojo.png" alt="" class="icon2" id="eye" />
             <p>Confirmar Contraseña</p>
-            <input type="password" placeholder="Contraseña" id="password" name="confirmacion" required>
+            <input type="password" placeholder="Contraseña" id="passwordConfirmar" name="passwordConfirmar" required>
             <img src="/static/imagenes/ojo.png" alt="" class="icon" id="eye" />
-            <input type="submit" value="Registrate"  >
+            <p>Numero de telefono</p>
+            <input type="text" placeholder="Numero de telefono" id="telefono" name="telefono" >
+            <input type="submit" value="Registrate">
             <a href="/login">Iniciar Sesion</a>
+        </form>
+
+
         </div>   
-    </form>
     <script src="/static/js/javaC.js"></script>
 </body>
 
