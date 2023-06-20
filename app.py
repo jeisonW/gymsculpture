@@ -32,6 +32,7 @@ def register():
 
         if not request.form.get("correo").endswith("@gmail.com"):
             next # correo no valido
+            
         sql = "select correo from usuarios where correo = ?"
         rows = cursor.execute(sql, (request.form.get("correo")))
         rows = cursor.fetchall()
