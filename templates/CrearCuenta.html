@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrate</title>
+    <link rel="stylesheet" href="/static/crear.css">
+</head>
+
+<body>
+    <!---  {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alerta1">
+        <strong></strong> {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %} --->
+    <form action="/register" method="post">
+        <div class="Login">
+            <img src="/static/imagenes/avatar.jpeg" alt="" class="avatar">
+            <h1>Registrate</h1>
+
+           
+
+            <p>Nombre completo</p>
+            <input type="text" placeholder="Nombre completo" id="Nombre" name="nombre" required>
+            <p>Correo Electronico</p> 
+            <input type="text" placeholder="Correo Electronico" id="correo" name="correo" required>
+            <p>Contraseña</p>
+            <input type="password" placeholder="Contraseña" id="password" name="password" required>
+            <p>Confirmar Contraseña</p>
+            <input type="password" placeholder="Contraseña" id="password" name="confirmacion" required>
+            <img src="/static/imagenes/ojo.png" alt="" class="icon" id="eye" />
+            <input type="submit" value="Registrate"  >
+            <a href="/login">Iniciar Sesion</a>
+        </div>   
+    </form>
+    <script src="/static/js/javaC.js"></script>
+</body>
+
+</html>

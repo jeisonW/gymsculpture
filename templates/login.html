@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+    <form>
+        <div class="Login">
+            <img src="/static/imagenes/avatar.jpeg" alt="" class="avatar">
+            <h1>Iniciar Sesion</h1>
+            <p>Correo Electronico</p>
+            <input type="text" placeholder="Correo Electronico" id="correo">
+            <p>Contraseña</p>
+            <input type="password" placeholder="Contraseña" id="password">
+            <img src="/static/imagenes/ojo.png" alt="" class="icon" id="eye" />
+            <input type="button" value="Iniciar Sesion" onclick="optenerInput()">
+            <a href="/register">Crear una cuenta</a>
+        </div>
+    </form>
+    <script src="node_modules/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
