@@ -30,12 +30,12 @@ def index():
 def register():
     if request.method == "POST":
 
-        if not request.form.get("correo").endswith("@gmail.com"):
-            next # correo no valido
-            
-        sql = "select correo from usuarios where correo = ?"
-        rows = cursor.execute(sql, (request.form.get("correo")))
-        rows = cursor.fetchall()
+        if request.form.get("correo"):
+            if not request.form.get("correo").endswith("@gmail.com"):
+                next # correo no valido
+            sql = "select correo from usuarios where correo = ?"
+            rows = cursor.execute(sql, (request.form.get("correo")))
+            rows = cursor.fetchall()
 
         if len(rows) > 0:
             next # correo ya estaba insertado en la base de datos            
