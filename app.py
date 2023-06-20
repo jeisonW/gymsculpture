@@ -25,7 +25,7 @@ cursor = conexion.cursor()
 @app.route("/")
 @login_required
 def index():
-    return ""
+    return render_template("index.html")
 
 @app.route("/register" ,  methods=["GET", "POST"])
 def register():
@@ -68,7 +68,20 @@ def register():
 def login():
     session.clear()
     if request.method == "POST":
-       next     
+        correo = request.form.get("correo")
+        password = request.form.get("password")
+
+        query = "select * from usuarios where correo = ?"
+        rows =cursor.execute(query, (correo))
+        rows = cursor.fetchall()
+        match = check_password_hash(rows[0][1] , password)
+
+        if len(rows) == 0 :
+            return render_template("login.html" , error="Nombre de usuario o contraseña incorrecta")
+        else:
+            session["user_id"] = rows
+            print(session["user_id"][0][1])
+            return redirect("/")       
     else : 
         return render_template("login.html")
 
