@@ -89,7 +89,10 @@ def login():
 @app.route("/user" ,  methods=["GET", "POST"])
 def user():
     if request.method == "POST":
-        next
+        sql = "update usuarios set puntos = ?  where correo = ?"
+        cursor.execute(sql , (request.form.get("puntos") , request.form.get("correo")))
+        cursor.commit()
+        return redirect("/user")
     else:
         sql = "select * from usuarios where estado = 'si'"
         resultados = cursor.execute(sql)
