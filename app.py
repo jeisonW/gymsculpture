@@ -80,10 +80,21 @@ def login():
             return render_template("login.html" , error="Nombre de usuario o contraseña incorrecta")
         else:
             session["user_id"] = rows
-            print(session["user_id"][0][1])
+            print(session["user_id"][0][3])
             return redirect("/")       
     else : 
         return render_template("login.html")
+    
+
+@app.route("/user" ,  methods=["GET", "POST"])
+def user():
+    if request.method == "POST":
+        next
+    else:
+        sql = "select * from usuarios where estado = 'si'"
+        resultados = cursor.execute(sql)
+        resultados = cursor.fetchall()
+        return render_template("usuarios.html" , user = resultados)
 
 if __name__ == '__main__':
     app.run()
