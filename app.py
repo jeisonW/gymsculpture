@@ -4,7 +4,6 @@ from flask import Flask, jsonify, redirect, render_template, request, session
 from helper import  login_required
 from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
-from celery import Celery
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -40,9 +39,7 @@ def tarea_diaria():
     print("¡Tarea diaria ejecutada!")
 
 # Configura la tarea para que se ejecute todos los días a las 12:00 PM
-scheduler.add_job(tarea_diaria, 'cron', hour=13, minute=50)
-
-
+scheduler.add_job(tarea_diaria, 'cron', hour=23, minute=23)
 
 @app.route("/")
 @login_required
