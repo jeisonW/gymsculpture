@@ -16,8 +16,8 @@ Session(app)
 
 try:##verificar que no haya ningun error al conectarse con la BF
     #esto tienen que cambiarlo en base  a su computadora
-    #conexion =  pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-F9CVAAQJ\SQLEXPRESS;DATABASE=sculpture_gym;UID=TiendaKD;PWD=1234')
-    conexion = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-DJ008NGO\;DATABASE=Sculpture_gym;Trusted_Connection=yes;')
+    conexion =  pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-F9CVAAQJ\SQLEXPRESS;DATABASE=sculpture_gym;UID=TiendaKD;PWD=1234')
+    #conexion = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-DJ008NGO\;DATABASE=Sculpture_gym;Trusted_Connection=yes;')
 except:
     print("FAIL")
 
