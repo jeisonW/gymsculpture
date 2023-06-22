@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
 from celery import Celery
 from datetime import datetime, timedelta
-import redis
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 
@@ -19,6 +19,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
+
 try:##verificar que no haya ningun error al conectarse con la BF
     #esto tienen que cambiarlo en base  a su computadora
     conexion =  pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-F9CVAAQJ\SQLEXPRESS;DATABASE=sculpture_gym;UID=TiendaKD;PWD=1234')
@@ -27,6 +28,21 @@ except:
     print("FAIL")
 
 cursor = conexion.cursor()
+scheduler = BackgroundScheduler(daemon=True)
+
+# Inicia el planificador
+scheduler.start()
+
+def tarea_diaria():
+    sql = "UPDATE usuarios set puntos = (puntos-1)  where correo != 'crusthianvg98@gmail.com' and correo != 'munguiak435@gmail.com'"    
+    cursor.execute(sql)
+    cursor.commit()
+    print("¡Tarea diaria ejecutada!")
+
+# Configura la tarea para que se ejecute todos los días a las 12:00 PM
+scheduler.add_job(tarea_diaria, 'cron', hour=13, minute=50)
+
+
 
 @app.route("/")
 @login_required
