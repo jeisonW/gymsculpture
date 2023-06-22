@@ -51,11 +51,11 @@ def register():
                 return render_template("CrearCuenta.html" , error = "telefono invalido")
             
         if not request.form.get("telefono"):
-            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,estado) VALUES (?,?,?,'si')"
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,estado,puntos) VALUES (?,?,?,'si',0)"
             cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),  request.form.get("nombre")))
             conexion.commit() 
         else:
-            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,telefono,estado) VALUES (?,?,?,?,'si')"
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,telefono,estado,puntos) VALUES (?,?,?,?,'si',0)"
             cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),request.form.get("nombre"),request.form.get("telefono"),  ))
             conexion.commit() 
        
@@ -76,6 +76,9 @@ def login():
         rows = cursor.fetchall()
         match = check_password_hash(rows[0][1] , password)
 
+        if int(rows[0][5]) <= 0:
+            return render_template("login.html" , error="Puntos insuficientes")
+
         if len(rows) == 0 :
             return render_template("login.html" , error="Nombre de usuario o contraseña incorrecta")
         else:
@@ -94,7 +97,7 @@ def user():
         cursor.commit()
         return redirect("/user")
     else:
-        sql = "select * from usuarios where estado = 'si'"
+        sql = "select * from usuarios where estado = 'si' and correo != 'munguiak435@gmail.com' and correo != 'crusthianvg98@gmail.com'"
         resultados = cursor.execute(sql)
         resultados = cursor.fetchall()
         return render_template("usuarios.html" , user = resultados)
