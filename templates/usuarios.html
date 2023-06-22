@@ -1,0 +1,107 @@
+{% extends "layout.html"%}
+
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<table class="table table-dark table-striped">
+<thead>
+    <tr>
+        <th scope="col">Correo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">puntos</th>
+
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in user %}
+    <tr>
+        <td>{{row.correo}}</td>
+        <td>{{row.nombre}}</td>
+        {% if row.puntos == None %}
+        <td> 0 </td>
+        {%else%}
+        <td>{{row.puntos}} </td>
+        {% endif %}
+      
+        <td>  
+          <a href="#" class="btn btn-primary btn-sm editar-producto" data-nombre="{{ row.nombre }}" data-correo="{{ row.correo }}" data-punto ="{{row.puntos}}" ><i class="fas fa-pencil"></i></a>
+            <!---<a class="btn btn-danger btn-sm eliminar-producto"><i class="fa fa-trash"></i></a></td> -->
+    </tr>
+    {% endfor %}
+</table>
+
+
+<form action="/user" method="post">
+<!-- Ventana modal -->
+<div id="editarModal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarModalLabel">Editar Producto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body">
+         <!-- Imagen -->
+         
+
+        <input type="hidden" id="idProducto">
+
+        <div class="form-group">
+          <label for="nombreProducto">Nombre </label>
+          <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="correoProducto">Correo </label>
+          <input type="email" class="form-control" id="correoProducto" name="correo" required>
+        </div>
+        <div class="form-group">
+          <label for="contraseñaProducto">puntos </label>
+          <input type="number" class="form-control" id="puntos" name="puntos" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary guardar-cambios">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<script>
+    $(document).ready(function() {
+      $('.editar-producto').click(function() {
+        var nombre = $(this).data('nombre');
+        var correo = $(this).data('correo');
+        var puntos = $(this).data('puntos');
+
+  
+  
+        // Llenar los campos de la ventana modal con los datos del producto
+
+        $('#nombreProducto').val(nombre);
+        $('#correoProducto').val(correo);
+        $('#puntos').val(puntos);
+
+  
+        // Mostrar la ventana modal
+        $('#editarModal').modal('show');
+      });
+    });
+</script>  
+
+<!--No borrar scrip para que funcione el dropdown-->
+<script src="https://kit.fontawesome.com/72d2ae7f6d.js" crossorigin="anonymous"></script>
+
+
+{% endblock %}

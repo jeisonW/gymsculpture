@@ -1,134 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sculpture Gym</title>
-    <link rel="stylesheet" href="/static/Inicio.css">
-</head>
-<body>
 
-   
-    <div class="dis">
-        <img src="/static/imagenes/logo2.jpeg" alt="Imagen de fondo" class="logo">
+{% block content %}
+<link rel="stylesheet" href="/static/Inicio.css">
+
+<div class="dis">
+    <img src="/static/imagenes/logo2.jpeg" alt="Imagen de fondo" class="logo">
+</div>
+
+<center>
+    <h1 class="Titulo">Lista de productos que ofrecemos </h1>
+</center>
+
+<section>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/Smith_Machine.jpeg" alt="">
+            <h3>Smith_Machine</h3>
+        </div>
+        <div class="face  back">
+            <h3>Smith Machine</h3>
+            <p>La maquina Smith Mchine es una maquina multiuso para trabajar las piernas, pecho y con la ayuda de su
+                polea trabajaras espaldas y triceps.</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://youtu.be/4bovMrzWn_w" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
+            </div>
+        </div>
     </div>
 
-    <center>
-        <h1 class="Titulo">Lista de productos que ofrecemos </h1>
-    </center>
-
-    <section>
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/Smith_Machine.jpeg" alt="">
-                <h3>Smith_Machine</h3>
-            </div>
-            <div class="face  back">
-                <h3>Smith Machine</h3>
-                <p>La maquina Smith Mchine es una maquina multiuso para trabajar las piernas, pecho y con la ayuda de su
-                    polea trabajaras espaldas y triceps.</p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://youtu.be/4bovMrzWn_w" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/SentadillasYpiernas.jpeg" alt="">
+            <h3>Caballota</h3>
+        </div>
+        <div class="face  back">
+            <h3>Caballota</h3>
+            <p>Caballota es una maquina para el trabajo profundo de las piernas y gluteos ya que aporta un mayor
+                angulo de trabajo por la forma en la que se encuentra esta maquina tambien aporta lo que es el
+                trabajo de las pantorrillas </p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://www.facebook.com/profile.php?id=100064037290647" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/SentadillasYpiernas.jpeg" alt="">
-                <h3>Caballota</h3>
-            </div>
-            <div class="face  back">
-                <h3>Caballota</h3>
-                <p>Caballota es una maquina para el trabajo profundo de las piernas y gluteos ya que aporta un mayor
-                    angulo de trabajo por la forma en la que se encuentra esta maquina tambien aporta lo que es el
-                    trabajo de las pantorrillas </p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://www.facebook.com/profile.php?id=100064037290647" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/Banca_romana para_abdomen.jpeg" alt="">
+            <h3>Banca romana para abdomen</h3>
+        </div>
+        <div class="face  back">
+            <h3>Banca Romana para abdomen</h3>
+            <p>Esta banca profundiza el trabajo en el abdomen</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://youtu.be/fsutBHzgWg0" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/Banca_romana para_abdomen.jpeg" alt="">
-                <h3>Banca romana para abdomen</h3>
-            </div>
-            <div class="face  back">
-                <h3>Banca Romana para abdomen</h3>
-                <p>Esta banca profundiza el trabajo en el abdomen</p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://youtu.be/fsutBHzgWg0" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/Banca_abdomen.jpeg" alt="">
+            <h3>Banca abdomen</h3>
+        </div>
+        <div class="face  back">
+            <h3>Banca abdomen</h3>
+            <p>La banca para abdomen cumple las necesidades sencillas para el trabajo de este mismo</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://youtu.be/0CyhcDdP_vY" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/Banca_abdomen.jpeg" alt="">
-                <h3>Banca abdomen</h3>
-            </div>
-            <div class="face  back">
-                <h3>Banca abdomen</h3>
-                <p>La banca para abdomen cumple las necesidades sencillas para el trabajo de este mismo</p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://youtu.be/0CyhcDdP_vY" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/Press_banca_hombros.jpeg" alt="">
+            <h3>Press banca hombros</h3>
+        </div>
+        <div class="face  back">
+            <h3>Press banca hombros</h3>
+            <p>la banca para hombros con angulo de 90 grados cumple las necesidades sencillas para el trabajo de
+                este mismo</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://youtube.com/shorts/MRxd1LA4OYk?feature=share" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
             </div>
         </div>
+    </div>
 
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/Press_banca_hombros.jpeg" alt="">
-                <h3>Press banca hombros</h3>
-            </div>
-            <div class="face  back">
-                <h3>Press banca hombros</h3>
-                <p>la banca para hombros con angulo de 90 grados cumple las necesidades sencillas para el trabajo de
-                    este mismo</p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://youtube.com/shorts/MRxd1LA4OYk?feature=share" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
+    <div class="card">
+        <div class="face  front">
+            <img src="/static/imagenes/pecho_declinada.jpeg" alt="">
+            <h3>Maquina de pecho</h3>
+        </div>
+        <div class="face  back">
+            <h3>Maquina de pecho</h3>
+            <p>La banca press de pecho declinada tiene un angulo de 30 grados hacia abajo para trabajar pectoral
+                mayor inferior, deptoides y triceps.</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="https://www.youtube.com/watch?v=zFC8AVZLhv4" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
             </div>
         </div>
-
-        <div class="card">
-            <div class="face  front">
-                <img src="/static/imagenes/pecho_declinada.jpeg" alt="">
-                <h3>Maquina de pecho</h3>
-            </div>
-            <div class="face  back">
-                <h3>Maquina de pecho</h3>
-                <p>La banca press de pecho declinada tiene un angulo de 30 grados hacia abajo para trabajar pectoral
-                    mayor inferior, deptoides y triceps.</p>
-                <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
-                <div class="link">
-                    <a href="https://www.youtube.com/watch?v=zFC8AVZLhv4" target="_blank">
-                        <img src="/static/imagenes/youtube.png" width="35px" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
+    </div>
 
 
-    </section>
-
-</body>
-</html>
+</section>
+{% endblock %}
