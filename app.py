@@ -4,7 +4,7 @@ from flask import Flask, jsonify, redirect, render_template, request, session
 from helper import  login_required
 from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
-from celery import Celery
+
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
