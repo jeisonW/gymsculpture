@@ -4,6 +4,7 @@ pass varchar(150) not null ,
 nombre  varchar(150) not null ,
 telefono varchar(8),
 estado varchar(2) not null,
+
 )
 
 

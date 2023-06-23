@@ -1,8 +1,13 @@
+import time
 from flask_session import Session
 from flask import Flask, jsonify, redirect, render_template, request, session
 from helper import  login_required
 from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
+from celery import Celery
+from datetime import datetime, timedelta
+import redis
+
 
 
 app = Flask(__name__)
@@ -89,8 +94,14 @@ def login():
     else : 
         return render_template("login.html")
     
+@app.route("/logout")
+@login_required
+def logout():
+    session.clear()
+    return redirect("/")
 
 @app.route("/user" ,  methods=["GET", "POST"])
+@login_required
 def user():
     if request.method == "POST":
         sql = "update usuarios set puntos = ?  where correo = ?"
