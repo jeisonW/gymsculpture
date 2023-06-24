@@ -21,8 +21,8 @@ Session(app)
 
 try:##verificar que no haya ningun error al conectarse con la BF
     #esto tienen que cambiarlo en base  a su computadora
-    conexion =  pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-F9CVAAQJ\SQLEXPRESS;DATABASE=sculpture_gym;UID=TiendaKD;PWD=1234')
-    #conexion = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-DJ008NGO\;DATABASE=Sculpture_gym;Trusted_Connection=yes;')
+    #conexion =  pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-F9CVAAQJ\SQLEXPRESS;DATABASE=sculpture_gym;UID=TiendaKD;PWD=1234')
+    conexion = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-DJ008NGO\;DATABASE=Sculpture_gym;Trusted_Connection=yes;')
 except:
     print("FAIL")
 
@@ -126,6 +126,11 @@ def user():
         resultados = cursor.execute(sql)
         resultados = cursor.fetchall()
         return render_template("usuarios.html" , user = resultados)
+
+@app.route("/prueba" ,  methods=["GET", "POST"])
+@login_required
+def prueba():
+    return render_template("prueba.html")
 
 if __name__ == '__main__':
     app.run()
