@@ -7,7 +7,6 @@ estado varchar(2) not null,
 
 )
 
-
 alter table usuario add puntos int
 
 CREATE TABLE maquinas (

@@ -135,7 +135,9 @@
                 <a href="{{row.enlace}}" target="_blank">
                     <img src="/static/imagenes/youtube.png" width="35px" alt="">
                 </a>
+                {% if session["user_id"][0][0] == 'crusthianvg98@gmail.com' or  session["user_id"][0][0] == 'munguiak435@gmail.com'%}
                 <a  href="#" class="btn btn-danger btn-sm eliminar" data-CODIGOpc="{{row.id}}" ><i class="fa fa-trash"></i></a></td>
+                {% endif %}
 
             </div>
         </div>

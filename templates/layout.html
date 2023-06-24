@@ -21,10 +21,15 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Sculpture Gym</div>
                 <div class="list-group list-group-flush">
+                    {% if session["user_id"][0][0] == 'crusthianvg98@gmail.com' or  session["user_id"][0][0] == 'munguiak435@gmail.com'%}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/user">Usuarios</a>
+                    {% endif %}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/maquinas">Maquinas</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/rutinas">Rutinas</a>
+                    {% if session["user_id"][0][0] == 'crusthianvg98@gmail.com' or  session["user_id"][0][0] == 'munguiak435@gmail.com'%}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/addmaquina">Agregar Maquinas</a>
+                    {% endif %}
+
 
                 </div>
             </div>
