@@ -1,3 +1,4 @@
+import base64
 import time
 from flask_session import Session
 from flask import Flask, jsonify, redirect, render_template, request, session
@@ -44,7 +45,20 @@ scheduler.add_job(tarea_diaria, 'cron', hour=23, minute=23)
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    return render_template("inicio.html")
+
+@app.route("/maquinas")
+@login_required
+def maquinas():
+    sql = "select * from maquinas"
+    resultados = cursor.execute(sql)
+    resultados = cursor.fetchall()
+    maquinas = []
+    for row in resultados:
+        imagen_base64 = base64.b64encode(row[4]).decode('utf-8')
+        maquinas.append({'id': row[0] , 'descripcion' : row[1],'enlace': row[2] ,'nombre':row[3] , 'foto': 'data:image/png;base64,' + imagen_base64 })
+
+    return render_template("index.html" , maquinas = maquinas)
 
 @app.route("/register" ,  methods=["GET", "POST"])
 def register():
@@ -126,6 +140,30 @@ def user():
         resultados = cursor.execute(sql)
         resultados = cursor.fetchall()
         return render_template("usuarios.html" , user = resultados)
+    
+@app.route("/addmaquina" ,  methods=["GET", "POST"])
+@login_required
+def useaddmaquinasr():
+    if request.method == "POST":
+        sql = "insert into maquinas (descripcion,enlace,nombre,foto) values (?,?,?,?)"
+        cursor.execute(sql ,(request.form.get("Descripcion") ,request.form.get("url") ,request.form.get("nombre") ,pyodbc.Binary(request.files.get("imagen").read())))
+        cursor.commit()
+        return render_template("addmaquinas.html" , succes = "registrado correctamente")
+    else:
+        return render_template("addmaquinas.html")
+    
+@app.route("/eliminarmaquina" ,  methods=["GET", "POST"])
+@login_required
+def eliminarmaquina():
+    sql = "delete from maquinas where id = ?"
+    cursor.execute(sql, request.form.get("idhiddenform"))
+    cursor.commit()
+    return redirect("/maquinas")
+
+@app.route("/rutinas")
+def rutinas():
+    return render_template("rutinas.html")
+
 
 if __name__ == '__main__':
     app.run()
