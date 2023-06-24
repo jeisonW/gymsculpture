@@ -121,9 +121,66 @@
             </div>
         </div>
     </div>
+    {% for row in maquinas %}
+    <div id="card">
+        <div class="face  front">
+            <img src="{{row.foto}}" alt="">
+            <h3>{{row.nombre}}</h3>
+        </div>
+        <div class="face  back">
+            <h3>{{row.nombre}}</h3>
+            <p>{{row.descripcion}}</p>
+            <h5>Si te interesa el uso de la maquina te invitamos que veas el siguiente link:</h5>
+            <div class="link">
+                <a href="{{row.enlace}}" target="_blank">
+                    <img src="/static/imagenes/youtube.png" width="35px" alt="">
+                </a>
+                {% if session["user_id"][0][0] == 'crusthianvg98@gmail.com' or  session["user_id"][0][0] == 'munguiak435@gmail.com'%}
+                <a  href="#" class="btn btn-danger btn-sm eliminar" data-CODIGOpc="{{row.id}}" ><i class="fa fa-trash"></i></a></td>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <form action="/eliminarmaquina" method="post" id="deleteForm">
+        <input type="hidden" id="ideli" name="idhiddenform">    
+        <input type="hidden" name="tabla" >
+    </form>
 
 
 </section>
 
-
+<script src="https://kit.fontawesome.com/72d2ae7f6d.js" crossorigin="anonymous"></script>
+<script>
+        
+$(document).ready(function() {
+        
+        $('.eliminar').click(function() {
+        var CodigoSP = $(this).data('codigopc');
+        console.log(CodigoSP)
+        Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas eliminar el registro?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+        
+      }).then((result) => {
+       
+        if (result.isConfirmed) {
+            $('#ideli').val(CodigoSP);
+            document.getElementById("deleteForm").submit();
+    
+        } else {
+          console.log("Eliminación cancelada");
+        }
+        });
+        });
+            
+    });
+    
+</script>
 {% endblock %}

@@ -7,6 +7,12 @@ estado varchar(2) not null,
 
 )
 
-
 alter table usuario add puntos int
 
+CREATE TABLE maquinas (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    descripcion VARCHAR(255),
+    enlace VARCHAR(255),
+    nombre VARCHAR(100),
+    foto VARBINARY(MAX)
+);
