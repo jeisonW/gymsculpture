@@ -2,40 +2,34 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<table class="table table-dark table-striped">
-<thead>
-    <tr>
-        <th scope="col">Correo</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">puntos</th>
-
-        <th scope="col"></th>
-
-    </tr>
-    </thead>
-    <tbody>
-    {% for row in user %}
-    <tr>
-        <td>{{row.correo}}</td>
-        <td>{{row.nombre}}</td>
-        {% if row.puntos == None %}
-        <td> 0 </td>
-        {%else%}
-        <td>{{row.puntos}} </td>
-        {% endif %}
-      
-        <td>  
-          <a href="#" class="btn btn-primary btn-sm editar-producto" data-nombre="{{ row.nombre }}" data-correo="{{ row.correo }}" data-punto ="{{row.puntos}}" ><i class="fas fa-pencil"></i></a>
-            <!---<a class="btn btn-danger btn-sm eliminar-producto"><i class="fa fa-trash"></i></a></td> -->
-    </tr>
-    {% endfor %}
+<link rel="stylesheet" href="static/prueba.css">
+<table class="fl-table">
+  <thead>
+  <tr>
+      <th>Correo  </th>
+      <th>Nombre</th>
+      <th>Puntos </th>
+      <th></th>
+  </tr>
+  </thead>
+  <tbody>
+      {% for row in user %}
+      <tr>
+          <td>{{row.correo}}</td>
+          <td>{{row.nombre}}</td>
+          {% if row.puntos == None %}
+          <td> 0 </td>
+          {%else%}
+          <td>{{row.puntos}} </td>
+          {% endif %}
+        
+          <td>  
+            <a href="#" class="btn btn-primary btn-sm editar-producto" data-nombre="{{ row.nombre }}" data-correo="{{ row.correo }}" data-punto ="{{row.puntos}}" ><i class="fas fa-pencil"></i></a>
+              <!---<a class="btn btn-danger btn-sm eliminar-producto"><i class="fa fa-trash"></i></a></td> -->
+      </tr>
+      {% endfor %}
+  <tbody>
 </table>
-
 
 <form action="/user" method="post">
 <!-- Ventana modal -->
