@@ -34,7 +34,7 @@ scheduler = BackgroundScheduler(daemon=True)
 scheduler.start()
 
 def tarea_diaria():
-    sql = "UPDATE usuarios set puntos = (puntos-1)  where correo != 'crusthianvg98@gmail.com' and correo != 'munguiak435@gmail.com'"    
+    sql = "UPDATE usuarios set puntos = (puntos-1)  where correo != 'crusthianvg98@gmail.com' and correo != 'munguiak435@gmail.com' and puntos <> 0"    
     cursor.execute(sql)
     cursor.commit()
     print("¡Tarea diaria ejecutada!")
@@ -45,6 +45,7 @@ scheduler.add_job(tarea_diaria, 'cron', hour=23, minute=23)
 @app.route("/")
 @login_required
 def index():
+    
     return render_template("inicio.html")
 
 @app.route("/maquinas")
@@ -84,11 +85,11 @@ def register():
                 return render_template("CrearCuenta.html" , error = "telefono invalido")
             
         if not request.form.get("telefono"):
-            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,estado,puntos) VALUES (?,?,?,'si',0)"
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,estado,puntos) VALUES (?,?,?,'si',1)"
             cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),  request.form.get("nombre")))
             conexion.commit() 
         else:
-            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,telefono,estado,puntos) VALUES (?,?,?,?,'si',0)"
+            sql="INSERT INTO dbo.usuarios(correo,pass,nombre,telefono,estado,puntos) VALUES (?,?,?,?,'si',1)"
             cursor.execute(sql,  (request.form.get("correo"),generate_password_hash(request.form.get("password")),request.form.get("nombre"),request.form.get("telefono"),  ))
             conexion.commit() 
        
@@ -108,7 +109,10 @@ def login():
         rows =cursor.execute(query, (correo))
         rows = cursor.fetchall()
         match = check_password_hash(rows[0][1] , password)
+        if match != True:
+            return render_template("login.html" , error="contraseña incorrecta")
 
+        print(match)
         if int(rows[0][5]) <= 0:
             return render_template("login.html" , error="Puntos insuficientes")
 
@@ -122,7 +126,6 @@ def login():
         return render_template("login.html")
     
 @app.route("/logout")
-@login_required
 def logout():
     session.clear()
     return redirect("/")
@@ -136,7 +139,7 @@ def user():
         cursor.commit()
         return redirect("/user")
     else:
-        sql = "select * from usuarios where estado = 'si' and correo != 'munguiak435@gmail.com' and correo != 'crusthianvg98@gmail.com'"
+        sql = "select * from usuarios where estado = 'si' and correo != 'munguiak435@gmail.com' and correo != 'crusthianvg98@gmail.com' and correo != 'Dylan@gmail.com'"
         resultados = cursor.execute(sql)
         resultados = cursor.fetchall()
         return render_template("usuarios.html" , user = resultados)
@@ -161,6 +164,7 @@ def eliminarmaquina():
     return redirect("/maquinas")
 
 @app.route("/rutinas")
+@login_required
 def rutinas():
     return render_template("rutinas.html")
 

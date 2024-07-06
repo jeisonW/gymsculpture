@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>Gimnasio Sculpture</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico">
+       
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/static/late.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -20,6 +20,8 @@
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Sculpture Gym</div>
+                <button id="modoNocheBtn">Modo Noche</button>
+
                 <div class="list-group list-group-flush">
                     {% if session["user_id"][0][0] == 'crusthianvg98@gmail.com' or  session["user_id"][0][0] == 'munguiak435@gmail.com'%}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/user">Usuarios</a>
