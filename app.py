@@ -7,6 +7,13 @@ from werkzeug.security import generate_password_hash , check_password_hash
 import pyodbc
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from smtplib import SMTP
+from enum import Enum
+import os
+from dotenv import load_dotenv
+
 
 
 
@@ -33,6 +40,66 @@ scheduler = BackgroundScheduler(daemon=True)
 # Inicia el planificador
 scheduler.start()
 
+class Days_to_notificate(Enum):
+    CLOSEST = '1'
+
+def send_bill(correo : str):
+    load_dotenv()
+    SUBJECT = "Pago realizado"
+    FROM = os.getenv('EMAIL')
+    To = correo 
+    
+    msg = MIMEMultipart()
+    msg['Subject'] = SUBJECT
+    msg['From'] = FROM
+    msg['To'] = To
+    
+    with open('gymsculpture/bill.html',mode='r', encoding="utf-8") as file:
+        html = file.read()
+    
+    msg.attach(MIMEText(html,'html'))
+    
+    server = SMTP('smtp.gmail.com', 587)
+
+    server.starttls()
+    server.login(FROM, os.getenv('APPLICATION_KEY'))
+    server.sendmail(from_addr=FROM, to_addrs=To, msg=msg.as_string())
+    server.quit()
+
+def send_notifications():
+    """docstring"""    
+
+    load_dotenv()
+    SUBJECT = "Aviso de Pago"
+    FROM = os.getenv('EMAIL')
+
+    query = """SELECT correo, puntos
+                FROM USUARIOS 
+                WHERE puntos = 1"""
+
+    cursor.execute(query)
+    emails = cursor.fetchall()
+
+
+    for row in emails:
+
+        msg = MIMEMultipart()
+        msg['Subject'] = SUBJECT
+        msg['From'] = FROM
+        msg['To'] = row.correo
+
+        with open('gymsculpture/reminder.html',mode='r', encoding="utf-8") as file:
+            html = file.read()
+
+        msg.attach(MIMEText(html,'html'))
+
+        server = SMTP('smtp.gmail.com', 587)
+
+        server.starttls()
+        server.login(FROM, os.getenv('APPLICATION_KEY'))
+        server.sendmail(from_addr=FROM, to_addrs=row.correo, msg=msg.as_string())
+        server.quit()
+
 def tarea_diaria():
     sql = "UPDATE usuarios set puntos = (puntos-1)  where correo != 'crusthianvg98@gmail.com' and correo != 'munguiak435@gmail.com' and puntos <> 0"    
     cursor.execute(sql)
@@ -41,6 +108,8 @@ def tarea_diaria():
 
 # Configura la tarea para que se ejecute todos los días a las 12:00 PM
 scheduler.add_job(tarea_diaria, 'cron', hour=23, minute=23)
+scheduler.add_job(send_notifications, 'cron', hour=12, minute=15)
+
 
 @app.route("/")
 @login_required
@@ -136,6 +205,8 @@ def user():
     if request.method == "POST":
         sql = "update usuarios set puntos = ?  where correo = ?"
         cursor.execute(sql , (request.form.get("puntos") , request.form.get("correo")))
+        if cursor.rowcount == 1 :
+            send_bill(correo= request.form.get("correo"))
         cursor.commit()
         return redirect("/user")
     else:
